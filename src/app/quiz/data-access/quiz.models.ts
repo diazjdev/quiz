@@ -7,5 +7,7 @@ export interface Question{
 
 export interface QuizState{
     questions:Array<Question>;
-    activeQuestion:number
+    activeQuestion:number;
+    answers:Array<number>
 }
+
