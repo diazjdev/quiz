@@ -1,1 +1,13 @@
-<p>question works!</p>
+@if(question()){
+    <p>{{question()?.label}}</p>
+    <ul>
+        @for (answer of question()?.answers; track $index) {
+            <li>{{answer}}</li>
+        }
+    </ul>
+
+}
+
+@else {
+    <p>No question available</p>
+}

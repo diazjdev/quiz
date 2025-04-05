@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { QuestionComponent } from '@quiz/ui/question/question.component';
 
 @Component({
   selector: 'app-quiz',
-  imports: [],
+  imports: [QuestionComponent],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.css'
 })

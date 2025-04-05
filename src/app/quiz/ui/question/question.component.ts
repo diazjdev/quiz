@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Question } from '@quiz/data-access/quiz.models';
 
 @Component({
   selector: 'app-question',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './question.component.css'
 })
 export class QuestionComponent {
+  question = input<Question | null>(null)
 
 }
