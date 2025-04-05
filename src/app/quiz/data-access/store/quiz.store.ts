@@ -1,6 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { QuizState } from '@quiz/data-access/quiz.models';
+import { Question, QuizState } from '@quiz/data-access/quiz.models';
 import { QuizService } from '../services/quiz.service';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { debounceTime, pipe, switchMap, tap } from 'rxjs';
@@ -13,7 +13,9 @@ const initialState: QuizState = {
   answers:[]
 };
 
-export const QuizStore = signalStore(withState(initialState),
+export const QuizStore = signalStore(
+  { providedIn: 'root' },
+  withState(initialState),
 withMethods((store, quizService = inject(QuizService))=>({
   nextQuestion:()=> {
     patchState(store, (state)=>({ activeQuestion:store.activeQuestion()+1}))
@@ -23,15 +25,16 @@ withMethods((store, quizService = inject(QuizService))=>({
   },
   loadQuestions:rxMethod<void>(
     pipe(
-      debounceTime(300),
       switchMap(()=> quizService.getQuestions().pipe(
-        tap((data)=>{
-          patchState(store, ({questions})=>({questions:[...questions, ...data]}))
-        }
+        tap((questions:Array<Question>) =>{
+          patchState(store,{questions});
+        })
       ))
     )
+
   )
-})),
+})
+),
 withComputed((store)=>({
   currentQuestion:computed(()=>  store.questions().find((q,index)=> index===store.activeQuestion() ? q : null)),
   score:computed(()=> {

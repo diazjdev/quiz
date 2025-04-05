@@ -8,7 +8,9 @@ export class QuizFacade {
 
   #quizStore = inject(QuizStore);
 
-  activeQuestion = this.#quizStore.activeQuestion;
+  currentQuestion = this.#quizStore.currentQuestion;
 
-  constructor() { }
+  constructor() {
+    this.#quizStore.loadQuestions();
+   }
 }
