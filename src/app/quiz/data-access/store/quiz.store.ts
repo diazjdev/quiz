@@ -33,6 +33,7 @@ withMethods((store, quizService = inject(QuizService))=>({
   )
 })),
 withComputed((store)=>({
+  currentQuestion:computed(()=>  store.questions().find((q,index)=> index===store.activeQuestion() ? q : null)),
   score:computed(()=> {
     let score = 0;
 
