@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuizComponent } from './quiz.component';
+import { QuizFacade } from '../../data-access/facades/quiz.facade';
+import { vi } from 'vitest';
 
 describe('QuizComponent', () => {
   let component: QuizComponent;
@@ -8,7 +10,8 @@ describe('QuizComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QuizComponent]
+      imports: [QuizComponent],
+      providers:[{ provide:QuizFacade, userValue:vi.fn(()=> {})}]
     })
     .compileComponents();
 
