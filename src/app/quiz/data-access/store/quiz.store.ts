@@ -15,13 +15,20 @@ const initialState: QuizState = {
 
 export const QuizStore = signalStore(
   { providedIn: 'root' },
-  withState(initialState),
+withState(initialState),
 withMethods((store, quizService = inject(QuizService))=>({
   nextQuestion:()=> {
-    patchState(store, (state)=>({ activeQuestion:store.activeQuestion()+1}))
+    patchState(store, ()=>({ activeQuestion:store.activeQuestion()+1}))
   },
   prevQuestion:()=> {
-    patchState(store, (state)=>({ activeQuestion:store.activeQuestion()-1}))
+    patchState(store, ()=>({ activeQuestion:store.activeQuestion()-1}))
+  },
+  answerQuestion:(answer:number)=>{
+    if(store.answers()?.length === store.activeQuestion()){
+      const answers:Array<number>=store.answers().splice(store.activeQuestion(),1,answer);
+      patchState(store, { answers });
+    }
+    
   },
   loadQuestions:rxMethod<void>(
     pipe(
@@ -37,6 +44,9 @@ withMethods((store, quizService = inject(QuizService))=>({
 ),
 withComputed((store)=>({
   currentQuestion:computed(()=>  store.questions().find((q,index)=> index===store.activeQuestion() ? q : null)),
+  isNavigateEnabled:computed(()=> store.answers()?.length === store.activeQuestion() + 1),
+  isPrev:computed(()=> store.activeQuestion() > 0),
+  isNext:computed(()=> store.activeQuestion()  < store.questions()?.length -1),
   score:computed(()=> {
     let score = 0;
 
