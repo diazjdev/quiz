@@ -1,6 +1,9 @@
-<p>quiz works!</p>
-<app-question></app-question>
+<p>Score: {{quizScore()}}</p>
+<app-question (answerQuestion)="onAnswerQuestion($event)" [question]="currentQuestion()!"></app-question>
+
+<button (click)="prevQuestion()">Prev</button>
+<button (click)="nextQuestion()">Next</button>
 
 <pre>
-    {{currentQuestion() | json}}
+    {{answers() | json}}
 </pre>

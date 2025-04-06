@@ -15,5 +15,21 @@ export class QuizComponent {
   #questionFacade = inject(QuizFacade);
 
   currentQuestion = this.#questionFacade.currentQuestion;
+  quizScore = this.#questionFacade.quizScore;
+  answers = this.#questionFacade.answers;
+
+  onAnswerQuestion(answer:number){
+    console.log({answer});
+    this.#questionFacade.answerQuestion(answer);
+    
+  }
+
+  prevQuestion(){
+    this.#questionFacade.prevQuestion();
+  }
+
+  nextQuestion(){
+    this.#questionFacade.nextQuestion();
+  }
 
 }

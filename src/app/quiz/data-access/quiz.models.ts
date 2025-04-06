@@ -8,6 +8,6 @@ export interface Question{
 export interface QuizState{
     questions:Array<Question>;
     activeQuestion:number;
-    answers:Array<number>
+    answers:{[question:number]:number}
 }
 

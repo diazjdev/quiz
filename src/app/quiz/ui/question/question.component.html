@@ -2,7 +2,7 @@
     <p>{{question()?.label}}</p>
     <ul>
         @for (answer of question()?.answers; track $index) {
-            <li (click)="onAnswerQuestion($index)" [class.selected]="$index ===selectedAnswer()">{{answer}}</li>
+            <li (click)="onAnswerQuestion($index)">{{answer}}</li>
         }
     </ul>
 

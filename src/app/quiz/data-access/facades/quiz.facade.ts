@@ -9,8 +9,22 @@ export class QuizFacade {
   #quizStore = inject(QuizStore);
 
   currentQuestion = this.#quizStore.currentQuestion;
+  quizScore = this.#quizStore.score;
+  answers = this.#quizStore.answers;
 
   constructor() {
     this.#quizStore.loadQuestions();
+   }
+
+   answerQuestion(answer:number){
+    this.#quizStore.answerQuestion(answer);
+   }
+
+   prevQuestion(){
+    this.#quizStore.prevQuestion();
+   }
+
+   nextQuestion(){
+    this.#quizStore.nextQuestion();
    }
 }

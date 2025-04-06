@@ -10,7 +10,7 @@ import { debounceTime, pipe, switchMap, tap } from 'rxjs';
 const initialState: QuizState = {
   questions:[],
   activeQuestion: 0,
-  answers:[]
+  answers:{}
 };
 
 export const QuizStore = signalStore(
@@ -24,11 +24,8 @@ withMethods((store, quizService = inject(QuizService))=>({
     patchState(store, ()=>({ activeQuestion:store.activeQuestion()-1}))
   },
   answerQuestion:(answer:number)=>{
-    if(store.answers()?.length === store.activeQuestion()){
-      const answers:Array<number>=store.answers().splice(store.activeQuestion(),1,answer);
+      const answers = {...store.answers(), [store.activeQuestion()]:answer}
       patchState(store, { answers });
-    }
-    
   },
   loadQuestions:rxMethod<void>(
     pipe(
@@ -44,17 +41,14 @@ withMethods((store, quizService = inject(QuizService))=>({
 ),
 withComputed((store)=>({
   currentQuestion:computed(()=>  store.questions().find((q,index)=> index===store.activeQuestion() ? q : null)),
-  isNavigateEnabled:computed(()=> store.answers()?.length === store.activeQuestion() + 1),
   isPrev:computed(()=> store.activeQuestion() > 0),
   isNext:computed(()=> store.activeQuestion()  < store.questions()?.length -1),
   score:computed(()=> {
     let score = 0;
-
-    store.answers().forEach((answer, index)=>{
-      if(store.questions()[index].correctAnswer===answer){
+    store.questions().forEach((question, index)=>{
+      if(store.answers()[index]===question.correctAnswer){
         score ++;
       }
-
     })
     return score;
   } )
