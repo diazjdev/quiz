@@ -9,6 +9,7 @@ import { Question } from '@quiz/data-access/quiz.models';
 })
 export class QuestionComponent {
   question = input<Question | null>(null);
+  selectedAnswer = input<number>(-1);
   @Output() answerQuestion = new EventEmitter<number>();
 
 

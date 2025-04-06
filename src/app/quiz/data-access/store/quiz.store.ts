@@ -43,6 +43,7 @@ withComputed((store)=>({
   currentQuestion:computed(()=>  store.questions().find((q,index)=> index===store.activeQuestion() ? q : null)),
   isPrev:computed(()=> store.activeQuestion() > 0),
   isNext:computed(()=> store.activeQuestion()  < store.questions()?.length -1),
+  currentQuestionAnswer:computed(()=> store.answers()[store.activeQuestion()] ?? -1),
   score:computed(()=> {
     let score = 0;
     store.questions().forEach((question, index)=>{

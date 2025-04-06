@@ -17,6 +17,7 @@ export class QuizComponent {
   currentQuestion = this.#questionFacade.currentQuestion;
   quizScore = this.#questionFacade.quizScore;
   answers = this.#questionFacade.answers;
+  selectedAnswer = this.#questionFacade.currentQuestionAnswer;
 
   onAnswerQuestion(answer:number){
     console.log({answer});

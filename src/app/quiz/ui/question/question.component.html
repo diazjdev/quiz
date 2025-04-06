@@ -1,8 +1,8 @@
 @if(question()){
     <p>{{question()?.label}}</p>
     <ul>
-        @for (answer of question()?.answers; track $index) {
-            <li (click)="onAnswerQuestion($index)">{{answer}}</li>
+        @for (answer of question()?.answers; let i =$index; track $index) {
+            <li [class.selected]="selectedAnswer()===i" (click)="onAnswerQuestion($index)">{{answer}}</li>
         }
     </ul>
 

@@ -11,6 +11,7 @@ export class QuizFacade {
   currentQuestion = this.#quizStore.currentQuestion;
   quizScore = this.#quizStore.score;
   answers = this.#quizStore.answers;
+  currentQuestionAnswer = this.#quizStore.currentQuestionAnswer;
 
   constructor() {
     this.#quizStore.loadQuestions();
