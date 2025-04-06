@@ -1,9 +1,8 @@
 <p>Score: {{quizScore()}}</p>
 <app-question [selectedAnswer]="selectedAnswer()" (answerQuestion)="onAnswerQuestion($event)" [question]="currentQuestion()!"></app-question>
 
-<button (click)="prevQuestion()">Prev</button>
-<button (click)="nextQuestion()">Next</button>
+<div class="buttons">
+    <button class="button is-link is-outlined" (click)="prevQuestion()">Prev</button>
+    <button class="button  is-link is-outlined" (click)="nextQuestion()">Next</button>
+</div>
 
-<pre>
-    {{answers() | json}}
-</pre>

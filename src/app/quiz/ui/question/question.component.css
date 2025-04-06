@@ -1,4 +1,15 @@
-.selected{
-    background-color: red;
-    color: white;
+i{
+    visibility: hidden;
+}
+i.selected{
+    color:hsl(233deg, 100%, 63%);
+    visibility: visible;
+}
+
+li{
+    cursor: pointer;
+}
+
+li:hover{
+    background-color: #eee;
 }

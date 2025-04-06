@@ -1,8 +1,11 @@
 @if(question()){
-    <p>{{question()?.label}}</p>
-    <ul>
+    <p class="is-size-4 my-4">{{question()?.label}}</p>
+    <ul class="panel my-5">
+      
         @for (answer of question()?.answers; let i =$index; track $index) {
-            <li [class.selected]="selectedAnswer()===i" (click)="onAnswerQuestion($index)">{{answer}}</li>
+            <li class="panel-block" (click)="onAnswerQuestion($index)">
+                
+                <i class="fa-solid fa-check mr-3" [class.selected]="selectedAnswer()===i" ></i> {{answer}} </li>
         }
     </ul>
 
