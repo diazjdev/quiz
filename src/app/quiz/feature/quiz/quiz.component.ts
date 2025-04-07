@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { QuizFacade } from '@quiz/data-access/facades/quiz.facade';
 import { QuizStore } from '@quiz/data-access/store/quiz.store';
 import { QuestionComponent } from '@quiz/ui/question/question.component';
@@ -13,6 +14,7 @@ import { QuestionComponent } from '@quiz/ui/question/question.component';
 export class QuizComponent {
 
   #questionFacade = inject(QuizFacade);
+  #router = inject(Router)
 
   currentQuestion = this.#questionFacade.currentQuestion;
   quizScore = this.#questionFacade.quizScore;
@@ -33,6 +35,11 @@ export class QuizComponent {
 
   nextQuestion(){
     this.#questionFacade.nextQuestion();
+  }
+
+  viewScore(){
+    this.#router.navigate(['score'])
+
   }
 
 }

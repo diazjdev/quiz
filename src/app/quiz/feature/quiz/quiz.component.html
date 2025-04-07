@@ -1,4 +1,3 @@
-<p>Score: {{quizScore()}}</p>
 <app-question [selectedAnswer]="selectedAnswer()" (answerQuestion)="onAnswerQuestion($event)" [question]="currentQuestion()!"></app-question>
 
 <div class="buttons">
@@ -8,7 +7,7 @@
 
 
     }@else {
-    <button class="button  is-link is-outlined" (click)="nextQuestion()">Complete Quiz</button>
+    <button class="button  is-link is-outlined" (click)="viewScore()">View Score</button>
 
     }
 </div>
