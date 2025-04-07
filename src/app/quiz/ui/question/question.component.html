@@ -4,8 +4,14 @@
       
         @for (answer of question()?.answers; let i =$index; track $index) {
             <li class="panel-block" (click)="onAnswerQuestion($index)">
-                
-                <i class="fa-solid fa-check mr-3" [class.selected]="selectedAnswer()===i" ></i> {{answer}} </li>
+                @if(selectedAnswer()===i){
+                    <i class="fa-regular fa-circle-dot mr-3"></i>
+                }@else {
+                    <i class="fa-regular fa-circle mr-3"></i>
+
+                }
+              
+                {{answer}} </li>
         }
     </ul>
 

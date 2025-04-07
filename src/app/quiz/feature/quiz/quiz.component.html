@@ -2,7 +2,14 @@
 <app-question [selectedAnswer]="selectedAnswer()" (answerQuestion)="onAnswerQuestion($event)" [question]="currentQuestion()!"></app-question>
 
 <div class="buttons">
-    <button class="button is-link is-outlined" (click)="prevQuestion()">Prev</button>
-    <button class="button  is-link is-outlined" (click)="nextQuestion()">Next</button>
+    <button  class="button is-link" [class.is-outlined]="isPrev()" [disabled]="!isPrev()" (click)="prevQuestion()">Prev</button>
+    @if(isNext()){
+    <button [disabled]="!isNext()" class="button  is-link is-outlined" (click)="nextQuestion()">Next</button>
+
+
+    }@else {
+    <button class="button  is-link is-outlined" (click)="nextQuestion()">Complete Quiz</button>
+
+    }
 </div>
 

@@ -18,6 +18,8 @@ export class QuizComponent {
   quizScore = this.#questionFacade.quizScore;
   answers = this.#questionFacade.answers;
   selectedAnswer = this.#questionFacade.currentQuestionAnswer;
+  isPrev = this.#questionFacade.isPrev;
+  isNext = this.#questionFacade.isNext;
 
   onAnswerQuestion(answer:number){
     console.log({answer});
