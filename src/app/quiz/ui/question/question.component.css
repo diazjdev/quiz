@@ -1,0 +1,14 @@
+i{
+    color:hsl(233deg, 100%, 63%);
+    font-size: 1.2rem;
+
+}
+
+
+li{
+    cursor: pointer;
+}
+
+li:hover{
+    background-color: #e6e9fb;
+}
