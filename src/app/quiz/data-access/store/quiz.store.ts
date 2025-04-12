@@ -27,6 +27,9 @@ withMethods((store, quizService = inject(QuizService))=>({
       const answers = {...store.answers(), [store.activeQuestion()]:answer}
       patchState(store, { answers });
   },
+  resetQuiz:()=>{
+    patchState(store,{activeQuestion:0, answers:{}});
+  },
   loadQuestions:rxMethod<void>(
     pipe(
       switchMap(()=> quizService.getQuestions().pipe(

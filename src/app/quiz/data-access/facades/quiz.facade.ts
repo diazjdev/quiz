@@ -30,4 +30,8 @@ export class QuizFacade {
    nextQuestion(){
     this.#quizStore.nextQuestion();
    }
+
+   resetQuiz(){
+    this.#quizStore.resetQuiz();
+   }
 }

@@ -1,2 +1,16 @@
-<p>score works!</p>
-<p>{{score()}}</p>
+<div class="card">
+  <div class="card-content">
+    <p class="title">
+      Your final score is:
+    </p>
+    <p class="has-text-primary has-text-weight-bold has-text-centered score">
+        {{score()}}
+    </p>
+    <p class="has-text-centered is-size-4">{{scoreMessage()}}</p>
+    <p class="has-text-centered my-5">
+        <button class="button is-link is-outlined" (click)="startQuizAgain()">Start Quiz Again</button>
+
+    </p>
+  </div>
+  
+</div>
