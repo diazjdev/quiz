@@ -1,26 +1,37 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { fireEvent, render, screen } from '@testing-library/angular';
+import { describe } from 'vitest';
 import { QuizComponent } from './quiz.component';
-import { QuizFacade } from '../../data-access/facades/quiz.facade';
-import { vi } from 'vitest';
 
 describe('QuizComponent', () => {
-  let component: QuizComponent;
-  let fixture: ComponentFixture<QuizComponent>;
+  it('Component is rendered', async () => {
+    await render(QuizComponent);
+    const question = screen.getByRole('paragraph');
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [QuizComponent],
-      providers:[{ provide:QuizFacade, userValue:vi.fn(()=> {})}]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(QuizComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    expect(question).toBeTruthy();
+    expect(question.textContent).toContain('What is the capital of France?');
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('Button prev is disabled', async () => {
+    await render(QuizComponent);
+    const prevButton = screen.getByRole('button', {
+      name: 'Prev',
+    }) as HTMLButtonElement;
+
+    expect(prevButton.disabled).toBeTruthy();
+  });
+
+  it('Button Prev is enabled if button next is clicked', async () => {
+    await render(QuizComponent);
+    const prevButton = screen.getByRole('button', {
+      name: 'Prev',
+    }) as HTMLButtonElement;
+
+    const nextButton = screen.getByRole('button', {
+      name: 'Next',
+    }) as HTMLButtonElement;
+
+    fireEvent.click(nextButton);
+
+    expect(prevButton.disabled).toBeFalsy();
   });
 });

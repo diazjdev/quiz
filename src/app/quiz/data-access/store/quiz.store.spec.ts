@@ -1,4 +1,4 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { describe, it, vi } from 'vitest';
 import { QuizService } from '../services/quiz.service';
@@ -48,18 +48,18 @@ describe('QuizStore', () => {
   });
 
   describe('When the store data load is completed', () => {
-    it('Then the number of questions loaded is one', fakeAsync(() => {
+    beforeEach(async () => {
+      await store.loadQuestions();
+    });
+    it('Then the number of questions loaded is one', () => {
       const questionLabel = questions[0].label;
-      store.loadQuestions();
-
-      tick();
 
       expect(store.questions().length).toBe(1);
       expect(store.questions()[0].label).toBe(questionLabel);
-    }));
+    });
   });
 
-  describe('When user answers and question', () => {
+  describe('When user answers a question', () => {
     beforeEach(() => {
       store.loadQuestions();
     });
