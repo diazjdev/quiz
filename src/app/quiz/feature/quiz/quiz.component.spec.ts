@@ -1,37 +1,85 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { provideHttpClient } from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { Question } from '@quiz/data-access/quiz.models';
+import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
 import { describe } from 'vitest';
 import { QuizComponent } from './quiz.component';
 
-describe('QuizComponent', () => {
-  it('Component is rendered', async () => {
-    await render(QuizComponent);
-    const question = screen.getByRole('paragraph');
+const quizQuestion: Question = {
+  label: 'Which language is primarily spoken in Brazil?',
+  answers: ['Spanish', 'Portuguese', 'French', 'Italian'],
+  correctAnswer: 1,
+};
 
-    expect(question).toBeTruthy();
-    expect(question.textContent).toContain('What is the capital of France?');
+const quizQuestions = [
+  quizQuestion,
+  {
+    ...quizQuestion,
+    correctAnswer: 1,
+    label: 'Which language is spoken in Angola',
+  },
+];
+
+describe('QuizComponent', () => {
+  let httpTestingController: HttpTestingController;
+
+  beforeEach(async () => {
+    await render(QuizComponent, {
+      imports: [],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+
+    httpTestingController = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+  it('Component is rendered', async () => {
+    const req = httpTestingController.expectOne('/data/quiz.json');
+    req.flush([quizQuestion]);
+
+    await waitFor(() => {
+      const question = screen.getByRole('paragraph');
+
+      expect(question).toBeTruthy();
+      expect(question.textContent).toContain(quizQuestion.label);
+    });
   });
 
   it('Button prev is disabled', async () => {
-    await render(QuizComponent);
-    const prevButton = screen.getByRole('button', {
-      name: 'Prev',
-    }) as HTMLButtonElement;
+    const req = httpTestingController.expectOne('/data/quiz.json');
+    req.flush([quizQuestion]);
 
-    expect(prevButton.disabled).toBeTruthy();
+    await waitFor(() => {
+      const prevButton = screen.getByRole('button', {
+        name: 'Prev',
+      }) as HTMLButtonElement;
+
+      expect(prevButton.disabled).toBeTruthy();
+    });
   });
 
   it('Button Prev is enabled if button next is clicked', async () => {
-    await render(QuizComponent);
-    const prevButton = screen.getByRole('button', {
-      name: 'Prev',
-    }) as HTMLButtonElement;
+    const req = httpTestingController.expectOne('/data/quiz.json');
+    req.flush([...quizQuestions]);
 
-    const nextButton = screen.getByRole('button', {
-      name: 'Next',
-    }) as HTMLButtonElement;
+    await waitFor(() => {
+      const prevButton = screen.getByRole('button', {
+        name: 'Prev',
+      }) as HTMLButtonElement;
 
-    fireEvent.click(nextButton);
+      const nextButton = screen.getByRole('button', {
+        name: 'Next',
+      }) as HTMLButtonElement;
 
-    expect(prevButton.disabled).toBeFalsy();
+      fireEvent.click(nextButton);
+
+      expect(prevButton.disabled).toBeFalsy();
+    });
   });
 });

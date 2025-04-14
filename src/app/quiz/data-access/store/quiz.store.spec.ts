@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { describe, it, vi } from 'vitest';
 import { QuizService } from '../services/quiz.service';
@@ -20,12 +21,8 @@ let store: any;
 describe('QuizStore', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        {
-          provide: QuizService,
-          useValue: quizService,
-        },
-      ],
+      imports: [],
+      providers: [MockProvider(QuizService, quizService)],
     });
 
     TestBed.inject(QuizService);

@@ -38,7 +38,7 @@ export const QuizStore = signalStore(
     loadQuestions: rxMethod<void>(
       pipe(
         switchMap(() =>
-          quizService.getQuestions().pipe(
+          quizService.getQuestions()?.pipe(
             tap((questions: Array<Question>) => {
               patchState(store, { questions });
             })
