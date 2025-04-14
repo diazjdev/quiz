@@ -2,19 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizFacade } from '@quiz/data-access/facades/quiz.facade';
-import { QuizStore } from '@quiz/data-access/store/quiz.store';
 import { QuestionComponent } from '@quiz/ui/question/question.component';
 
 @Component({
   selector: 'app-quiz',
   imports: [QuestionComponent, CommonModule],
   templateUrl: './quiz.component.html',
-  styleUrl: './quiz.component.css'
+  styleUrl: './quiz.component.css',
 })
 export class QuizComponent {
-
   #questionFacade = inject(QuizFacade);
-  #router = inject(Router)
+  #router = inject(Router);
 
   currentQuestion = this.#questionFacade.currentQuestion;
   quizScore = this.#questionFacade.quizScore;
@@ -23,23 +21,19 @@ export class QuizComponent {
   isPrev = this.#questionFacade.isPrev;
   isNext = this.#questionFacade.isNext;
 
-  onAnswerQuestion(answer:number){
-    console.log({answer});
+  onAnswerQuestion(answer: number) {
     this.#questionFacade.answerQuestion(answer);
-    
   }
 
-  prevQuestion(){
+  prevQuestion() {
     this.#questionFacade.prevQuestion();
   }
 
-  nextQuestion(){
+  nextQuestion() {
     this.#questionFacade.nextQuestion();
   }
 
-  viewScore(){
-    this.#router.navigate(['score'])
-
+  viewScore() {
+    this.#router.navigate(['score']);
   }
-
 }
