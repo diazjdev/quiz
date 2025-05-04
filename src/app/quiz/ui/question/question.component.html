@@ -1,12 +1,11 @@
 @if(question()){
     <p class="is-size-4 my-4">{{question()?.label}}</p>
-    <p>Selected Answer: {{ selectedAnswer()}}</p>
     <div [formGroup]="questionForm">
     <ul class="panel my-5">
 
         @for (answer of question()?.answers; let i =$index; track $index) {
           <li><input type="radio" formControlName="question" [value]="i" [id]="i" [checked]="selectedAnswer()==i">
-            <label [for]="i">{{answer}}  - {{i}}</label></li>
+            <label [for]="i">{{answer}}</label></li>
         }
     </ul>
   </div>
