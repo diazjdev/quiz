@@ -1,19 +1,15 @@
 @if(question()){
     <p class="is-size-4 my-4">{{question()?.label}}</p>
+    <p>Selected Answer: {{ selectedAnswer()}}</p>
+    <div [formGroup]="questionForm">
     <ul class="panel my-5">
-      
-        @for (answer of question()?.answers; let i =$index; track $index) {
-            <li class="panel-block" (click)="onAnswerQuestion($index)">
-                @if(selectedAnswer()===i){
-                    <i class="fa-regular fa-circle-dot mr-3"></i>
-                }@else {
-                    <i class="fa-regular fa-circle mr-3"></i>
 
-                }
-              
-                {{answer}} </li>
+        @for (answer of question()?.answers; let i =$index; track $index) {
+          <li><input type="radio" formControlName="question" [value]="i" [id]="i" [checked]="selectedAnswer()==i">
+            <label [for]="i">{{answer}}  - {{i}}</label></li>
         }
     </ul>
+  </div>
 
 }
 
